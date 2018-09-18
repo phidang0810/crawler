@@ -1,0 +1,51 @@
+.product-item input[type=text], .product-item input[type=number] {
+    width:100% !important;
+}
+.red{
+    color:#721c24;
+}
+.tt-line {
+    width:100%;
+    display: block;
+    font-weight: bold;
+    margin-bottom:10px
+}
+.jumbotron{
+    padding: 30px !important;
+}
+
+.title-page{
+    font-size: 18px;
+    display: inline-block;
+    border-bottom: 1px solid;
+    padding: 0 15px 3px 0;
+
+}
+
+.form-inline .form-check {
+    justify-content: left;
+}
+
+table {
+    font-size:13px
+}
+table th, table td{
+    padding:5px !important;
+}
+#product-lists select{
+    width:100%
+}
+
+.product-item label {
+    font-size:13px
+}
+
+input.error{
+    border-color: #dc3545 !important;
+}
+
+@media (min-width: 992px) {
+    .modal-lg {
+        max-width: 999px;
+    }
+}

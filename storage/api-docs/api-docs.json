@@ -1,0 +1,382 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Zuri Quoting version",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/get-quote-fc": {
+            "post": {
+                "tags": [
+                    "Quote FC"
+                ],
+                "summary": "Get quote from FC",
+                "description": "",
+                "operationId": "quoteFC",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Data parameter",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "shipping_zip_code": {
+                                    "type": "string",
+                                    "example": 77006
+                                },
+                                "shipping_address_type": {
+                                    "description": "BUSINESS|RESIDENTIAL",
+                                    "type": "string",
+                                    "example": "BUSINESS"
+                                },
+                                "pickup_date": {
+                                    "description": "Format required is mm/dd/yyyy",
+                                    "type": "string",
+                                    "example": "4/20/2018"
+                                },
+                                "order_number": {
+                                    "type": "string",
+                                    "example": 11111
+                                },
+                                "shipping_method": {
+                                    "description": "DOCK_TO_DOCK|CURBSIDE|ROOM_OF_CHOOSE|WHITE_GLOVE",
+                                    "type": "string",
+                                    "example": "DOCK_TO_DOCK"
+                                },
+                                "pallets": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "num_of_pallet": {
+                                                "type": "number",
+                                                "example": 1
+                                            },
+                                            "num_of_carton": {
+                                                "type": "number",
+                                                "example": 1
+                                            },
+                                            "length": {
+                                                "type": "number",
+                                                "example": 86
+                                            },
+                                            "width": {
+                                                "type": "number",
+                                                "example": 36
+                                            },
+                                            "height": {
+                                                "type": "number",
+                                                "example": 41
+                                            },
+                                            "weight": {
+                                                "type": "number",
+                                                "example": 413
+                                            },
+                                            "dec_value": {
+                                                "type": "number",
+                                                "example": 1207
+                                            },
+                                            "freight_class": {
+                                                "type": "number",
+                                                "example": 50
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/api/get-quote-manna": {
+            "post": {
+                "tags": [
+                    "Quote Manna"
+                ],
+                "summary": "Get quote from Manna",
+                "description": "",
+                "operationId": "quoteManna",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Data parameter",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "shipping_zip_code": {
+                                    "type": "string",
+                                    "example": 77006
+                                },
+                                "shipping_address_type": {
+                                    "description": "BUSINESS|RESIDENTIAL",
+                                    "type": "string",
+                                    "example": "BUSINESS"
+                                },
+                                "pickup_date": {
+                                    "description": "Format required is mm/dd/yyyy",
+                                    "type": "string",
+                                    "example": "4/20/2018"
+                                },
+                                "order_number": {
+                                    "type": "string",
+                                    "example": 11111
+                                },
+                                "shipping_method": {
+                                    "description": "DOCK_TO_DOCK|CURBSIDE|ROOM_OF_CHOOSE|WHITE_GLOVE",
+                                    "type": "string",
+                                    "example": "DOCK_TO_DOCK"
+                                },
+                                "pallets": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "num_of_pallet": {
+                                                "type": "number",
+                                                "example": 1
+                                            },
+                                            "num_of_carton": {
+                                                "type": "number",
+                                                "example": 1
+                                            },
+                                            "length": {
+                                                "type": "number",
+                                                "example": 86
+                                            },
+                                            "width": {
+                                                "type": "number",
+                                                "example": 36
+                                            },
+                                            "height": {
+                                                "type": "number",
+                                                "example": 41
+                                            },
+                                            "weight": {
+                                                "type": "number",
+                                                "example": 413
+                                            },
+                                            "dec_value": {
+                                                "type": "number",
+                                                "example": 1207
+                                            },
+                                            "freight_class": {
+                                                "type": "number",
+                                                "example": 50
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/api/get-quote-convey": {
+            "post": {
+                "tags": [
+                    "Quote Convey"
+                ],
+                "summary": "Get quote from Convey",
+                "description": "",
+                "operationId": "quoteConvey",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Data parameter",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "shipping_zip_code": {
+                                    "type": "string",
+                                    "example": 77006
+                                },
+                                "shipping_address_type": {
+                                    "description": "BUSINESS|RESIDENTIAL",
+                                    "type": "string",
+                                    "example": "BUSINESS"
+                                },
+                                "pickup_date": {
+                                    "description": "Format required is mm/dd/yyyy",
+                                    "type": "string",
+                                    "example": "4/20/2018"
+                                },
+                                "order_number": {
+                                    "type": "string",
+                                    "example": 11111
+                                },
+                                "shipping_method": {
+                                    "description": "DOCK_TO_DOCK|CURBSIDE|ROOM_OF_CHOOSE|WHITE_GLOVE",
+                                    "type": "string",
+                                    "example": "DOCK_TO_DOCK"
+                                },
+                                "pallets": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "num_of_pallet": {
+                                                "type": "number",
+                                                "example": 1
+                                            },
+                                            "num_of_carton": {
+                                                "type": "number",
+                                                "example": 1
+                                            },
+                                            "length": {
+                                                "type": "number",
+                                                "example": 86
+                                            },
+                                            "width": {
+                                                "type": "number",
+                                                "example": 36
+                                            },
+                                            "height": {
+                                                "type": "number",
+                                                "example": 41
+                                            },
+                                            "weight": {
+                                                "type": "number",
+                                                "example": 413
+                                            },
+                                            "dec_value": {
+                                                "type": "number",
+                                                "example": 1207
+                                            },
+                                            "freight_class": {
+                                                "type": "number",
+                                                "example": 50
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "successful"
+                    }
+                }
+            }
+        },
+        "/api/get-quote-priority": {
+            "post": {
+                "tags": [
+                    "Quote Priority 1"
+                ],
+                "summary": "Get quote from Priority 1",
+                "description": "",
+                "operationId": "quotePriority",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Data parameter",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "shipping_zip_code": {
+                                    "type": "string",
+                                    "example": 77006
+                                },
+                                "shipping_address_type": {
+                                    "description": "BUSINESS|RESIDENTIAL",
+                                    "type": "string",
+                                    "example": "BUSINESS"
+                                },
+                                "pickup_date": {
+                                    "description": "Format required is mm/dd/yyyy",
+                                    "type": "string",
+                                    "example": "4/20/2018"
+                                },
+                                "order_number": {
+                                    "type": "string",
+                                    "example": 11111
+                                },
+                                "shipping_method": {
+                                    "description": "DOCK_TO_DOCK|CURBSIDE|ROOM_OF_CHOOSE|WHITE_GLOVE",
+                                    "type": "string",
+                                    "example": "DOCK_TO_DOCK"
+                                },
+                                "pallets": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "num_of_pallet": {
+                                                "type": "number",
+                                                "example": 1
+                                            },
+                                            "num_of_carton": {
+                                                "type": "number",
+                                                "example": 1
+                                            },
+                                            "length": {
+                                                "type": "number",
+                                                "example": 86
+                                            },
+                                            "width": {
+                                                "type": "number",
+                                                "example": 36
+                                            },
+                                            "height": {
+                                                "type": "number",
+                                                "example": 41
+                                            },
+                                            "weight": {
+                                                "type": "number",
+                                                "example": 413
+                                            },
+                                            "dec_value": {
+                                                "type": "number",
+                                                "example": 1207
+                                            },
+                                            "freight_class": {
+                                                "type": "number",
+                                                "example": 50
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "successful"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}

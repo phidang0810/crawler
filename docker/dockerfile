@@ -1,0 +1,77 @@
+#Download base image ubuntu 16.04
+FROM ubuntu:16.04
+
+ENV PHP_VERSION 7.1
+ENV PHP_EXT_CONF /etc/php/$PHP_VERSION/mods-available
+ENV nginx_vhost /etc/nginx/sites-available/default
+ENV php_conf /etc/php/$PHP_VERSION/fpm/php.ini
+ENV nginx_conf /etc/nginx/nginx.conf
+ENV supervisor_conf /etc/supervisor/supervisord.conf
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Update Software repository
+RUN apt-get update
+ 
+# Install nginx and supervisord from ubuntu repository
+RUN apt-get install -y nginx supervisor nano wget curl
+
+RUN apt-get install -y software-properties-common python-software-properties
+RUN LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
+RUN apt-get update -y
+
+RUN apt-get install -y php$PHP_VERSION
+RUN apt-get install -y php$PHP_VERSION-fpm
+RUN apt-get install -y php$PHP_VERSION-cli
+RUN apt-get install -y php$PHP_VERSION-gd php$PHP_VERSION-json php$PHP_VERSION-mysql
+RUN apt-get install -y php$PHP_VERSION-xml php$PHP_VERSION-common
+RUN apt-get install -y php$PHP_VERSION-readline php$PHP_VERSION-mbstring
+RUN apt-get install -y php$PHP_VERSION-dom php$PHP_VERSION-curl
+RUN apt-get install -y php$PHP_VERSION-zip
+RUN apt-get install -y php$PHP_VERSION-mcrypt php$PHP_VERSION-bcmath php$PHP_VERSION-bz2 php$PHP_VERSION-gmp
+RUN apt-get install php-pear php$PHP_VERSION-dev -y
+
+RUN pecl install redis && echo "extension=redis.so" > $PHP_EXT_CONF/redis.ini \
+	&& ln -sf PHP_EXT_CONF/redis.ini /etc/php/$PHP_VERSION/fpm/conf.d/20-redis.ini \
+	&& ln -sf PHP_EXT_CONF/redis.ini /etc/php/$PHP_VERSION/cli/conf.d/20-redis.ini
+
+RUN pecl install xdebug 
+COPY ./conf/xdebug.ini $PHP_EXT_CONF/xdebug.ini
+RUN ln -sf $PHP_EXT_CONF/xdebug.ini /etc/php/$PHP_VERSION/fpm/conf.d/20-xdebug.ini \
+	&& ln -sf $PHP_EXT_CONF/xdebug.ini /etc/php/$PHP_VERSION/cli/conf.d/20-xdebug.ini
+
+#Install composer
+RUN php -r "if (hash_file('SHA384', 'composer-setup.php') === '544e09ee996cdf60ece3804abc52599c22b1f40f4323403c44d44fdfdd586475ca9813a858088ffbc1f233e9b180f061') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+
+#Install git
+RUN add-apt-repository ppa:git-core/ppa && apt-get update && apt-get install git -y
+
+RUN rm -rf /var/lib/apt/lists/*
+
+
+
+ 
+
+# Enable php-fpm on nginx virtualhost configuration
+COPY ./conf/default ${nginx_vhost}
+RUN sed -i -e 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' ${php_conf} && \
+    echo "\ndaemon off;" >> ${nginx_conf}
+ 
+#Copy supervisor configuration
+COPY ./conf/supervisord.conf ${supervisor_conf}
+ 
+RUN mkdir -p /run/php && \
+    chown -R www-data:www-data /var/www/html && \
+    chown -R www-data:www-data /run/php
+ 
+# Volume configuration
+VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx", "/var/www/html"]
+ 
+# Configure Services and Port
+COPY start.sh /start.sh
+RUN chmod +x start.sh
+CMD ["./start.sh"]
+ 
+EXPOSE 80 443
